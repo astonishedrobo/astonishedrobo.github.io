@@ -1,0 +1,42 @@
+{{ define "title" }}
+    {{ if .Title }}{{ .Title }} | {{ end }}{{ .Site.Title }}
+{{ end }}
+
+{{ define "content" }}
+<div class="container blog-list">
+    <h1 class="page-title">
+        {{ if eq .Kind "term" }}
+            {{ .Data.Singular | title }}: {{ .Title }}
+        {{ else }}
+            {{ .Title | default "Blog" }}
+        {{ end }}
+    </h1>
+
+    <div class="posts-container">
+        {{ range .Paginator.Pages }}
+            <article class="post-summary">
+                <header>
+                    <h2 class="post-title">
+                        <a href="{{ .Permalink }}">
+                            {{ .Title }}
+                        </a>
+                    </h2>
+                </header>
+
+                <div class="post-excerpt">
+                    {{ if .Params.description }}
+                        {{ .Params.description | markdownify }}
+                    {{ else }}
+                        {{ .Summary }}
+                    {{ end }}
+                    <a href="{{ .Permalink }}" class="read-more">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+        {{ end }}
+    </div>
+
+    {{ partial "pagination.html" . }}
+</div>
+{{ end }}
