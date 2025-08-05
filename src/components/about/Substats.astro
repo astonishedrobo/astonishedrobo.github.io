@@ -1,7 +1,6 @@
 ---
 import { socialLinks, type iconsType } from 'astro-pure/types'
 import { Icon } from 'astro-pure/user'
-
 interface SubstatsItem {
   platform: string
   icon: (typeof socialLinks)[number]
@@ -11,29 +10,27 @@ interface SubstatsItem {
   api?: string
   count?: number
 }
-
 type Props = {
   stats: SubstatsItem[]
 }
-
 const { stats } = Astro.props as Props
 
-async function fetchCount(item: SubstatsItem) {
-  if (!item.api) return
-  try {
-    const response = await fetch(`https://api.swo.moe/stats/${item.api}`)
-    const data = await response.json()
-    if (data.failed) {
-      throw new Error(data.message)
-    } else {
-      item.count = data.count
-    }
-  } catch (error) {
-    console.error('Error in Substats fetching: ' + error)
-  }
-}
-
-await Promise.all(stats.map(fetchCount))
+// Comment out the fetch function and API calls
+// async function fetchCount(item: SubstatsItem) {
+//   if (!item.api) return
+//   try {
+//     const response = await fetch(`https://api.swo.moe/stats/${item.api}`)
+//     const data = await response.json()
+//     if (data.failed) {
+//       throw new Error(data.message)
+//     } else {
+//       item.count = data.count
+//     }
+//   } catch (error) {
+//     console.error('Error in Substats fetching: ' + error)
+//   }
+// }
+// await Promise.all(stats.map(fetchCount))
 ---
 
 <div class='grid grid-cols-1 gap-3 rounded-xl border p-2 sm:grid-cols-2 sm:p-3'>
@@ -50,24 +47,26 @@ await Promise.all(stats.map(fetchCount))
           <div class='flex-1 text-foreground transition-colors group-hover:text-primary'>
             {platform}
           </div>
-          {count ? (
+          {/* Comment out the count display section */}
+          {/* {count ? (
             <div class='flex items-center gap-1.5'>
               <samp>{count}</samp>
               <span class='text-sm font-normal'>{text}</span>
             </div>
           ) : (
             'null'
-          )}
+          )} */}
         </div>
       </a>
     ))
   }
 </div>
-<div class='mt-2 text-right text-sm'>
+
+{/* Comment out the "powered by Substats" footer */}
+{/* <div class='mt-2 text-right text-sm'>
   Display real-time; powered by <a
     class='text-muted-foreground'
     href='http://github.com/spencerwooo/substats'
     target='_blank'
-    rel='noopener noreferrer'>Substats</a
-  >
-</div>
+    rel='noopener noreferrer'>Substats</a>
+</div> */}
