@@ -1,19 +1,39 @@
 ---
 import { Image } from 'astro:assets'
 
-import { Quote } from 'astro-pure/advanced'
 import { PostPreview } from 'astro-pure/components/pages'
 import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
 import { Button, Card, Icon, Label } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
-import ProjectCard from '@/components/home/ProjectCard.astro'
 import Section from '@/components/home/Section.astro'
 import SkillLayout from '@/components/home/SkillLayout.astro'
 import avatar from '@/assets/avatar.png'
 import config from '@/site-config'
 
-const focus = ["Large Language Models", "NLP", "Machine Learning", "Computer Vision"]
-const techstack = ['Python', 'LangChain', 'Langgraph', 'PyTorch', 'Hugging Face',]
+const focus = ['Applied ML', 'Speech & Multilingual AI', 'LLM Systems', 'Computer Vision']
+const languagesAndFrameworks = [
+  'Python',
+  'SQL',
+  'PyTorch',
+  'TensorFlow',
+  'scikit-learn',
+  'XGBoost',
+  'Hugging Face',
+  'LangChain',
+  'LangGraph',
+  'LlamaIndex'
+]
+const llmTrainingAndInference = [
+  'SFT',
+  'DPO',
+  'GRPO',
+  'LoRA / QLoRA',
+  'Quantization',
+  'KV caching',
+  'vLLM',
+  'RAG'
+]
+const tools = ['FastAPI', 'Docker', 'Git', 'Google Compute Engine', 'Google Cloud Storage']
 
 const MAX_POSTS = 10
 const allPosts = await getBlogCollection()
@@ -89,10 +109,9 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 
     <div id='content' class='animate flex flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
       <Section title='About'>
-        <p class='text-muted-foreground'>ML Engineer</p>
         <p class='text-muted-foreground'>
-          I am a machine learning engineer passionate about building intelligent systems that solve real-world problems. 
-          My work spans across predictive modeling, computer vision, natural language processing, and agentic AI systems.
+          I build and evaluate ML models for large scale social impact. In my free time, I enjoy
+          watching documentaries or reading latest LLM papers.
         </p>
         <Button title='More about me' class='w-fit self-end' href='/about' style='ahead' />
       </Section>
@@ -111,53 +130,77 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
         )
       }
 
-      {
-        /* <Section title='Experience'>
-      <Card
-        heading='Lorem Ipsum'
-        subheading='Sit amet consectetur'
-        date='Dec 2022 - Nov 2023'
-        imagePath='/src/assets/about-astro.png'
-        altText='Lorem, ipsum dolor sit'
-        imageClass='h-12 w-auto md:-start-16'
-      >
-        <ul class='ms-4 list-disc text-muted-foreground'>
-          <li>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore debitis recusandae, ut
-            molestiae laboriosam pariatur!
+      <Section title='Experience'>
+        <Card
+          heading='ML Analyst'
+          subheading='Wadhwani AI'
+          date='August 2025 - Present'
+        >
+          <ul
+            class='space-y-2 text-muted-foreground'
+            style='list-style-type: disc; padding-inline-start: 1.5rem;'
+          >
+            <li>
+              Led end-to-end modelling for Rajasthan's statewide Oral Reading Fluency diagnostics
+              program, spanning Grades 3 to 8 and reaching approximately 6 million students.
+            </li>
+            <li>
+              Designed the model training and evaluation pipeline, including calibration and
+              post-prediction analysis; achieved a 25% to 30% relative macro F1 gain over baseline
+              CWPM heuristics.
+            </li>
+            <li>
+              Evaluated ASR models for multi-state pilots and extended an internal model with
+              filler-word detection while preserving baseline WER.
+            </li>
+          </ul>
+        </Card>
+      </Section>
 
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
-          </li>
-        </ul>
-      </Card>
-      <Card
-        heading='Lorem Ipsum'
-        subheading='Sit amet consectetur'
-        date='Dec 2022 - Nov 2023'
-        imagePath='/src/assets/about-astro.png'
-        altText='Lorem, ipsum dolor sit'
-        imageClass='h-12 w-auto md:-start-16'
-      />
-    </Section> */
-      }
-      <Section title='Education'>
+      <Section title='Open Source'>
         <Card
           as='a'
-          heading='Ashoka University'
-          subheading='BS in Computer Science'
-          date='August 2021 - May 2025'
-          
+          heading='Google Research TabFM'
+          subheading='Open Source Contributor · Merged PR #62'
+          date='July 2026'
+          href='https://github.com/google-research/tabfm/pull/62'
         >
-          {
-            /* <ul class='ms-4 list-disc text-muted-foreground'>
-          <li>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore debitis recusandae, ut
-            molestiae laboriosam pariatur!
-          </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
-        </ul> */
-          }
+          <p class='text-muted-foreground'>
+            Implemented ICL context caching for the PyTorch backend, delivering 7.8× higher
+            inference throughput with unchanged ROC-AUC. Added INT8 KV-cache quantization, CPU
+            offloading, scikit-learn API support, tests, and benchmarks.
+          </p>
         </Card>
+      </Section>
+
+      <Section title='Publications'>
+        <Card
+          as='a'
+          heading='An Explainable Deep-Clustering Approach to Assess Climate Vulnerability in India'
+          subheading='PReMI 2025 · Lecture Notes in Computer Science, Springer'
+          date='2026'
+          href='https://link.springer.com/chapter/10.1007/978-3-032-18477-1_46'
+        />
+        <Card
+          as='a'
+          heading='LLM Driven Legal Text Analytics: A Case Study For Food Safety Violation Cases'
+          subheading='AACL-IJCNLP 2025 · JUSTNLP Workshop'
+          date='2025'
+          href='https://aclanthology.org/2025.justnlp-main.6/'
+        />
+      </Section>
+
+      <Section title='Education'>
+        <Card
+          heading='Ashoka University'
+          subheading='Postgraduate Diploma in Advanced Studies and Research, Computer Science'
+          date='August 2024 - May 2025'
+        />
+        <Card
+          heading='Ashoka University'
+          subheading="BS in Computer Science · Dean's List, 3 of 6 semesters"
+          date='August 2021 - May 2024'
+        />
       </Section>
 
       <!-- <Section title='Website List'>
@@ -200,7 +243,9 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 
       <Section title='Skills'>
         <SkillLayout title='Focus Areas' skills={focus} />
-        <SkillLayout title='Tech Stack' skills={techstack} />
+        <SkillLayout title='Languages & Frameworks' skills={languagesAndFrameworks} />
+        <SkillLayout title='LLM Training & Inference' skills={llmTrainingAndInference} />
+        <SkillLayout title='Backend & Tools' skills={tools} />
       </Section>
     </div>
     <!-- <Quote class='mt-12' /> -->
